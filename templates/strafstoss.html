@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{{url_for('insert_strafstoss')}}" enctype="multipart/form-data" method="post">
+    <div>
+        <label for="spiel">Spiel</label>
+        <select id="spiel" name="spiel_fk" required onchange="vereineProSpiel('{{teamsjson}}')">
+            <option disabled selected value>Spiel wählen</option>
+            {% for spiel in spiele%}
+            <option value="{{spiel[0]}}" heim="{{spiel[3]}}" gast="{{spiel[4]}}">{{spiel[1]}}, {{spiel[2]}}, {{spiel[6]}}</option>
+            {% endfor %}
+        </select>   
+    </div>
+    <div>
+        <label for="team">Verein</label>
+        <select id="team" name="team_fk" required>
+            <option disabled selected value>Team wählen</option>
+            {% for team in teams%}
+            <option value="{{team[0]}}">{{team[1]}}, {{team[2]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="spielername">Spielername</label>
+        <input id="spielername" type="text" name="spielername" placeholder="Fabian Poker" required>
+    </div>
+    <div>
+        <label for="nummer">Rückennummer</label>
+        <input id="nummer" type="number" name="spielernummer" min="1" max="99" placeholder="17" required>
+    </div>
+    <div>
+        <label for="minute">Minute</label>
+        <input id="minute" type="number" name="minute" min="1" max="90" placeholder="0" required>
+    </div>
+    <div>
+        <label for="nsz">Nachspielzeit</label>
+        <input id="nsz" type="number" name="nsz" min="0" placeholder="0">
+    </div>
+    <div>
+        <label for="verwandelt">Verwandelt?</label>
+        <input id="verwandelt" type="checkbox" name="verwandelt_mm">
+    </div>
+    <button type="submit">Anlegen</button>
+</form>
+{% if success %}
+<script>showToast("Strafstoß angelegt")</script>
+{% endif %}
+
+{% endblock content %}

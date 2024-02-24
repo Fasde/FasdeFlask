@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{{url_for('insert_team')}}" enctype="multipart/form-data" method="post">
+    <div>
+        <label for="verein">Verein</label>
+        <input id="verein" type="text" name="verein" list="vereine" placeholder="FC Wesuwe" required>
+        <datalist id="vereine">
+            {% for team in teams%}
+            <option value="{{team}}">
+            {% endfor %}
+        </datalist>
+    </div>
+    <div>
+        <label for="mannschaft">Mannschaft</label>
+        <input id="mannschaft" type="text" name="mannschaft" placeholder="1. Herren" required>
+    </div>
+    <button type="submit">Anlegen</button>
+</form>
+{% if success %}
+<script>showToast("Team angelegt")</script>
+{% endif %}
+
+{% endblock content %}
+
