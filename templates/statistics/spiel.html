@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{{url_for('stats.stats_spiel')}}" enctype="multipart/form-data" method="post">
+    <label for="von">Von (Default Jahresbeginn)</label>
+    <input name="von" id="von" type="date">
+    <label for="bis">Bis (Default Jahresende)</label>
+    <input name="bis" id="bis" type="date">
+    <button type="submit">Abschicken</button>
+</form>
+<div class="statistics">
+    <p>{{spm | safe}}</p>
+</div>
+{% endblock content %}

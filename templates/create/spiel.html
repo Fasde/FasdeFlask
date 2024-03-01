@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{{url_for('create.insert_spiel')}}" enctype="multipart/form-data" method="post">
+    <div>
+        <label for="liga">Spielklasse</label>
+        <input list="ligen" id="liga" type="text" name="spielklasse" placeholder="Kreisliga Emsland" required>
+        <datalist id="ligen">
+            {% for liga in ligen %}
+            <option value="{{liga}}">
+            {% endfor %}
+        </datalist>
+    </div>
+    <div>
+        <label for="ort">Spielort</label>
+        <input list="orte" id="ort" type="text" name="spielort" placeholder="Wesuwe 2. Platz" required>
+        <datalist id="orte">
+            {% for ort in orte %}
+            <option value="{{ort}}">
+            {% endfor %}
+        </datalist>
+    </div>
+    <div>
+        <label for="heim">Heimteam</label>
+        <input list="heimteams" id="heim" type="text" name="heim_fk" placeholder="Team wählen" required>
+        <datalist id="heimteams">
+            <option disabled selected value>Team wählen</option>
+            {% for team in teams%}
+            <option value="{{team[0]}}">{{team[1]}}, {{team[2]}}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div>
+        <label for="gast">Gastteam</label>
+        <input list="gastteams" id="gast" type="text" name="gast_fk" placeholder="Team wählen" required>
+        <datalist id="gastteams">
+            <option disabled selected value>Team wählen</option>
+            {% for team in teams%}
+            <option value="{{team[0]}}">{{team[1]}}, {{team[2]}}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div>
+        <label for="bem">Bemerkung</label>
+        <input id="bem" type="text" name="bemerkung" placeholder="Bspw. Unruhige Zuschauer....">
+    </div>
+    <div>
+        <label for="datum">Datum</label>
+        <input id="datum" type="date" name="datum" value="2024-01-31" required>
+    </div>
+    <div>
+        <label for="uhrzeit">Uhrzeit</label>
+        <input id="uhrzeit" type="time" name="uhrzeit" required>
+    </div>
+    <div>
+        <label for="fheim">Trikotfarbe Heim</label>
+        <input id="fheim" type="text" name="farbe_heim" placeholder="Rot">
+    </div>
+    <div>
+        <label for="fgast">Trikotfarbe Gast</label>
+        <input id="fgast" type="text" name="farbe_gast" placeholder="Weiß">
+    </div>
+    <div>
+        <label for="wetter">Wetter</label>
+        <input id="wetter" type="text" name="wetter" placeholder="Kalt Regnerisch">
+    </div>
+    <div>
+        <label for="fsr">Trikotfarbe Schiedsrichter</label>
+        <input id="fsr" type="text" name="farbe_sr" placeholder="Schwarz">
+    </div>
+    <div>
+        <label for="nsz1">Nachspielzeit 1. Hälfte</label>
+        <input id="nsz1" type="number" name="nsz1" placeholder="1" min="0">
+    </div>
+    <div>
+        <label for="nsz2">Nachspielzeit 2. Hälfte</label>
+        <input id="nsz2" type="number" name="nsz2" placeholder="1" min="0">
+    </div>
+    <button type="submit">Anlegen</button>
+</form>
+{% if success %}
+<script>showToast("Spiel angelegt")</script>
+{% endif %}
+
+{% endblock content %}
